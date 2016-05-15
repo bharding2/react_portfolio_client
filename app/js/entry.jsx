@@ -1,3 +1,6 @@
+const React = require('react');
+const ReactDOM = require('react-dom');
+
 var HelloPortfolio = React.createClass({
   render: function() {
     return (
@@ -16,7 +19,7 @@ setInterval(function() {
   );
 }, 500);
 
-var root = React.DOM.ul({ className: 'my-list' },
+var root = React.DOM.ul({ varName: 'my-list' },
   React.DOM.li(null, 'First list item'),
   React.DOM.li(null, 'Second list item')
 );
