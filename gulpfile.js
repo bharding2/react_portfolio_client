@@ -29,3 +29,5 @@ gulp.task('css:dev', () => {
   return gulp.src('app/**/*.css')
     .pipe(gulp.dest('./build'));
 });
+
+gulp.task('default', ['webpack:dev']);
