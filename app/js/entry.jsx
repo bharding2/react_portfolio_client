@@ -7,6 +7,7 @@ const ProjectBox = React.createClass({
     superAgent
     .get(this.props.url)
     .end((err, superRes) => {
+      if (err) return console.log(err);
       var superData = JSON.parse(superRes.text);
       this.setState({ data: superData });
     });
@@ -16,6 +17,7 @@ const ProjectBox = React.createClass({
     .post(this.props.url)
     .send(project)
     .end((err, superRes) => {
+      if (err) return console.log(err);
       this.loadProjectsFromServer();
     });
   },
@@ -28,7 +30,11 @@ const ProjectBox = React.createClass({
   render: function() {
     return (
       <div>
-        <ProjectList data={ this.state.data } url={ this.props.url } loadProjectsFromServer = { this.loadProjectsFromServer }/>
+        <ProjectList
+          data={ this.state.data }
+          url={ this.props.url }
+          loadProjectsFromServer = { this.loadProjectsFromServer }
+        />
         <h2>Submit a new project</h2>
         <ProjectForm onProjectSubmit={ this.handleProjectSubmit } />
       </div>
@@ -39,7 +45,7 @@ const ProjectBox = React.createClass({
 const ProjectList = React.createClass({
   render: function() {
     var url = this.props.url;
-    var loadProjectsFromServer = this.props.loadProjectsFromServer
+    var loadProjectsFromServer = this.props.loadProjectsFromServer;
     var projectNodes = this.props.data.map(function(project) {
       return (
         <Project
@@ -207,6 +213,7 @@ const Project = React.createClass({
     superAgent
     .delete(this.props.url + '/' + this.props.id)
     .end((err, superRes) => {
+      if (err) return console.log(err);
       this.props.loadProjectsFromServer();
     });
   },
@@ -215,6 +222,7 @@ const Project = React.createClass({
     .put(this.props.url + '/' + this.props.id)
     .send(project)
     .end((err, superRes) => {
+      if (err) return console.log(err);
       this.props.loadProjectsFromServer();
     });
   },
@@ -244,7 +252,7 @@ const Project = React.createClass({
       </ul>
     );
   }
-})
+});
 
 ReactDOM.render(
   <ProjectBox url='http://localhost:5555/api/projects' />,
